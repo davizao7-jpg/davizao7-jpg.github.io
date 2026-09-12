@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="monetag" content="acfb5cbf9020390fa28229eeb2215ffc">
+<title>Miner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <h1>Miner</h1>
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-value" id="gold">0</span>
+        <span class="stat-label">ouro</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="depth">1</span>
+        <span class="stat-label">profundidade</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="perSec">0</span>
+        <span class="stat-label">ouro/seg</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="mine-wrap">
+      <div class="mine" id="mine"></div>
+      <button class="next-layer" id="nextLayerBtn" hidden>Descer para a próxima camada</button>
+    </section>
+
+    <section class="shop">
+      <h2>Equipamento</h2>
+
+      <div class="upgrade" data-upgrade="pickaxe">
+        <div class="upgrade-info">
+          <strong>Picareta reforçada</strong>
+          <p>Aumenta o valor de tudo que você encontra.</p>
+          <span class="upgrade-level" id="pickaxeLevel">nível 0</span>
+        </div>
+        <button class="buy-btn" data-buy="pickaxe">
+          comprar · <span class="cost" id="pickaxeCost">10</span> ouro
+        </button>
+      </div>
+
+      <div class="upgrade" data-upgrade="cart">
+        <div class="upgrade-info">
+          <strong>Carrinho automático</strong>
+          <p>Extrai ouro sozinho, mesmo sem clicar.</p>
+          <span class="upgrade-level" id="cartLevel">nível 0</span>
+        </div>
+        <button class="buy-btn" data-buy="cart">
+          comprar · <span class="cost" id="cartCost">40</span> ouro
+        </button>
+      </div>
+
+      <div class="upgrade" data-upgrade="dynamite">
+        <div class="upgrade-info">
+          <strong>Dinamite</strong>
+          <p>Menos desabamentos, mais chance de achado raro.</p>
+          <span class="upgrade-level" id="dynamiteLevel">nível 0</span>
+        </div>
+        <button class="buy-btn" data-buy="dynamite">
+          comprar · <span class="cost" id="dynamiteCost">80</span> ouro
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <button id="resetBtn">reiniciar progresso</button>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="game.js"></script>
+  <script src="ads.js"></script>
+</body>
+</html>
