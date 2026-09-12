@@ -188,10 +188,10 @@ function nextLayer() {
   renderStats();
   renderGrid();
   save();
-  // ação real do jogador (mudou de "terreno") -> agora pode recarregar
-  // os banners ativos, respeitando o intervaloSegundos mínimo de cada um
-  if (typeof window.recarregarBanners === "function") {
-    window.recarregarBanners();
+  // ação real do jogador (mudou de "terreno") -> dispara o anúncio,
+  // respeitando o intervalo mínimo configurado no ads.js
+  if (typeof window.recarregarAnuncios === "function") {
+    window.recarregarAnuncios();
   }
 }
 
