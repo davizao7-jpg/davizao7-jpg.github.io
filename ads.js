@@ -1,24 +1,23 @@
 /* ============================================================
-   ADS.JS — Social Bar + Vignette Banner (Miner / Monetag)
+   ADS.JS — Social Bar + OnClick/Popunder (Miner / Monetag)
    ------------------------------------------------------------
-   Trocamos o sistema de "20 banners" por um único Vignette
-   Banner, disparado UMA vez por transição real do jogador
-   (o botão "Descer para a próxima camada"). Isso é o uso que
-   a própria Monetag desenhou esse formato pra atender.
+   Trocamos o Vignette pelo OnClick (Popunder). Esse formato é
+   diferente do Vignette: ele É feito pra disparar por ação do
+   usuário, então bater no "próxima camada" abrindo o anúncio
+   na hora é exatamente o uso pretendido — sem gambiarra.
 
-   NÃO EMPILHE VÁRIOS VIGNETTE NO MESMO CLIQUE. Vignette é um
-   modal centralizado com overlay — dois ou mais na mesma hora
-   (mesma zona ou zonas diferentes) significa impressão cobrada
-   sem visualização real por trás, que é o padrão mais direto de
-   tráfego inválido que existe. Por isso o motor abaixo só
-   permite 1 por vez, respeitando também um intervalo mínimo
-   entre disparos (mesmo que o jogador clique muito rápido).
+   COMPORTAMENTO ATUAL: sem cooldown, cada clique em "próxima
+   camada" dispara o script de novo. Isso é o que foi pedido.
+   Vale saber: scripts de Popunder desse tipo geralmente já têm
+   frequência própria controlada do lado da rede (ex: não abrir
+   mais de uma aba nova por período de tempo pro mesmo
+   visitante), então na prática o comportamento visível pro
+   jogador pode não ser "uma aba nova a cada clique" mesmo sem
+   cooldown nosso — quem decide isso por último é o script da
+   Monetag, não o nosso código.
 
    COMO EDITAR
-   - Pra trocar de zona (testar outra configuração no painel da
-     Monetag), troque só o "scriptHtml" do VIGNETTE abaixo.
-   - "intervaloSegundos" é o tempo mínimo entre um disparo e
-     outro, mesmo que o jogador clique mais rápido que isso.
+   - Pra trocar a zona, troque o "scriptHtml" do ONCLICK abaixo.
    - "ativo: false" desliga sem apagar o código.
    ============================================================ */
 
@@ -37,16 +36,12 @@
   };
 
   // ---------------------------------------------------------
-  // VIGNETTE BANNER — dispara 1x por transição real do jogo
+  // ONCLICK / POPUNDER — dispara a cada clique em "próxima camada"
   // ---------------------------------------------------------
-  const VIGNETTE = {
+  const ONCLICK = {
     ativo: true,
-    // ⚠️ TEMPORÁRIO PRA TESTE — volte pra 20 (ou mais) antes de publicar
-    // pra visitantes de verdade. Com 2s você vai ver o anúncio disparar
-    // em quase todo clique, só pra confirmar que o script funciona.
-    intervaloSegundos: 2,
     scriptHtml: `
-      <script>(function(s){s.dataset.zone='11779950',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+      <script>(function(s){s.dataset.zone='11784531',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
     `,
   };
 
@@ -84,22 +79,11 @@
     injetarScript(container, SOCIAL_BAR);
   }
 
-  let ultimoDisparoVignette = 0;
-
-  function podeDispararVignette() {
-    if (!VIGNETTE.ativo) return false;
-    const minimo = VIGNETTE.intervaloSegundos || 0;
-    if (minimo <= 0) return true;
-    return Date.now() - ultimoDisparoVignette >= minimo * 1000;
-  }
-
-  // Chame isso quando o jogador fizer uma transição real (ex: descer de
-  // camada). Dispara NO MÁXIMO 1 Vignette por chamada, respeitando o
-  // intervalo mínimo configurado acima.
-  window.dispararVignette = function () {
-    if (!podeDispararVignette()) return;
-    injetarScript(document.body, VIGNETTE);
-    ultimoDisparoVignette = Date.now();
+  // Chame isso a cada clique em "próxima camada". Sem cooldown — dispara
+  // toda vez que for chamada, contanto que ONCLICK.ativo seja true.
+  window.dispararPopunder = function () {
+    if (!ONCLICK.ativo) return;
+    injetarScript(document.body, ONCLICK);
   };
 
   document.addEventListener("DOMContentLoaded", () => {
