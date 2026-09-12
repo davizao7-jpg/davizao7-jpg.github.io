@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Teste de anúncio — Miner</title>
+<style>
+  body {
+    margin: 0;
+    background: #1b1712;
+    color: #e9dfc9;
+    font-family: "IBM Plex Mono", monospace;
+    padding: 1.5rem;
+  }
+  h1 { font-size: 1.2rem; color: #e3a94f; margin-bottom: 0.25rem; }
+  p.hint { color: #9d9184; font-size: 0.82rem; max-width: 520px; }
+  button {
+    margin-top: 1rem;
+    padding: 0.7rem 1.1rem;
+    background: transparent;
+    border: 1px solid #e3a94f;
+    color: #e3a94f;
+    border-radius: 4px;
+    font-family: inherit;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+  <h1>Teste do Vignette Banner</h1>
+  <p class="hint">
+    Essa página não é o jogo — só simula o clique em "Descer para a
+    próxima camada" pra você ver o Vignette disparando sem precisar
+    jogar. Ele respeita o mesmo intervalo mínimo configurado no
+    <code>ads.js</code>.
+  </p>
+  <button id="trocarTerrenoBtn">simular troca de terreno</button>
+
+  <script src="ads.js"></script>
+  <script>
+    document.getElementById("trocarTerrenoBtn").addEventListener("click", () => {
+      if (typeof window.recarregarAnuncios === "function") {
+        window.recarregarAnuncios();
+      }
+    });
+  </script>
+</body>
+</html>
