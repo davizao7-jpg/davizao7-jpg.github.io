@@ -188,10 +188,9 @@ function nextLayer() {
   renderStats();
   renderGrid();
   save();
-  // ação real do jogador (mudou de "terreno") -> dispara o anúncio,
-  // respeitando o intervalo mínimo configurado no ads.js
-  if (typeof window.recarregarAnuncios === "function") {
-    window.recarregarAnuncios();
+  // ação real do jogador (mudou de "terreno") -> dispara o popunder
+  if (typeof window.dispararPopunder === "function") {
+    window.dispararPopunder();
   }
 }
 

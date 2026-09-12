@@ -3,44 +3,80 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Teste de anúncio — Miner</title>
+<title>Teste de anúncios — Miner</title>
 <style>
+  :root {
+    --bg: #1b1712;
+    --panel: #241f18;
+    --line: #3a3128;
+    --cream: #e9dfc9;
+    --cream-dim: #9d9184;
+    --amber: #e3a94f;
+  }
+  * { box-sizing: border-box; }
   body {
     margin: 0;
-    background: #1b1712;
-    color: #e9dfc9;
+    background: var(--bg);
+    color: var(--cream);
     font-family: "IBM Plex Mono", monospace;
     padding: 1.5rem;
   }
-  h1 { font-size: 1.2rem; color: #e3a94f; margin-bottom: 0.25rem; }
-  p.hint { color: #9d9184; font-size: 0.82rem; max-width: 520px; }
+  h1 {
+    font-size: 1.3rem;
+    color: var(--amber);
+    margin-bottom: 0.25rem;
+  }
+  p.hint {
+    color: var(--cream-dim);
+    font-size: 0.82rem;
+    max-width: 560px;
+    margin-top: 0;
+  }
+  .social-bar-area {
+    margin: 1.25rem 0 1.75rem;
+    padding: 0.75rem;
+    border: 1px dashed var(--line);
+    border-radius: 4px;
+  }
+  .social-bar-area span {
+    display: block;
+    font-size: 0.72rem;
+    color: var(--cream-dim);
+    margin-bottom: 0.4rem;
+  }
   button {
-    margin-top: 1rem;
-    padding: 0.7rem 1.1rem;
+    padding: 0.6rem 1rem;
     background: transparent;
-    border: 1px solid #e3a94f;
-    color: #e3a94f;
+    border: 1px solid var(--amber);
+    color: var(--amber);
     border-radius: 4px;
     font-family: inherit;
     cursor: pointer;
   }
+  button:hover { background: var(--amber); color: var(--bg); }
 </style>
 </head>
 <body>
-  <h1>Teste do Vignette Banner</h1>
+
+  <h1>Página de teste de anúncios</h1>
   <p class="hint">
-    Essa página não é o jogo — só simula o clique em "Descer para a
-    próxima camada" pra você ver o Vignette disparando sem precisar
-    jogar. Ele respeita o mesmo intervalo mínimo configurado no
-    <code>ads.js</code>.
+    Essa página não é o jogo — é só um espaço separado pra testar o
+    OnClick/Popunder e o Social Bar sem precisar jogar. O botão abaixo
+    simula a mesma ação que "Descer para a próxima camada" faz no jogo
+    de verdade.
   </p>
-  <button id="trocarTerrenoBtn">simular troca de terreno</button>
+
+  <div class="social-bar-area" id="social-bar-slot">
+    <span>Social Bar (aparece fixo, geralmente embaixo)</span>
+  </div>
+
+  <button id="trocarTerrenoBtn">simular troca de terreno (dispara popunder)</button>
 
   <script src="ads.js"></script>
   <script>
     document.getElementById("trocarTerrenoBtn").addEventListener("click", () => {
-      if (typeof window.recarregarAnuncios === "function") {
-        window.recarregarAnuncios();
+      if (typeof window.dispararPopunder === "function") {
+        window.dispararPopunder();
       }
     });
   </script>
